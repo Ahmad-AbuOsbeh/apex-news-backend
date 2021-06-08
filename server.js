@@ -112,6 +112,9 @@ async function saveNewUserData() {
 server.get('/favCat', favCat);
 server.post('/addArticle', addArticleHandler);
 server.delete('/deleteArticle/:index', deleteArticleHandler);
+server.get('/reloadData', reloadDataHandler);
+server.get('/choosenArticles', choosenArticlesHandler);
+
 
 
   function favCat(req, res) {
@@ -239,3 +242,29 @@ function deleteArticleHandler (req,res){
 // console.log('req.query',req.params);
 
 }
+
+//create reloadDataHandler
+function reloadDataHandler(req,res){
+   const{email}=req.query;
+//    console.log('email',email);
+   UserModel.findOne({email:email},function (error,userData){
+       
+    // console.log('userData.favCategory',userData.favCategory);
+    res.send(userData.favCategory);
+   });
+
+
+}
+
+//create choosenArticlesHandler
+function choosenArticlesHandler(req,res){
+    const{email}=req.query;
+    console.log('email',email);
+    UserModel.findOne({email:email},function (error,userData){
+        
+     console.log('userData.favArticle',userData.favArticle);
+     res.send(userData.favArticle);
+    });
+ 
+ 
+ }
