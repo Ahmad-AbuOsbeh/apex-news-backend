@@ -33,7 +33,7 @@ function proofOfLif(req, res) {
 }
 
 //connect mongo with express server locally
-mongoose.connect('mongodb://localhost:27017/news',
+mongoose.connect(process.env.MONGODB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true });
 
 
@@ -43,7 +43,7 @@ const CategorySchema = new mongoose.Schema({
     sports: Boolean,
     business: Boolean,
     technology: Boolean,
-    general: Boolean,
+    entertainment: Boolean,
     health: Boolean,
     science: Boolean,
 
@@ -102,7 +102,7 @@ async function saveNewUserData() {
 //     sports: event.target.sports.checked,
 //     business:event.target.business.checked,
 //     technology:event.target.technology.checked,
-//     general:event.target.general.checked,
+//     entertainment:event.target.entertainment.checked,
 //     health:event.target.health.checked,
 //     science:event.target.science.checked,
     
@@ -118,12 +118,12 @@ server.get('/choosenArticles', choosenArticlesHandler);
 
 
   function favCat(req, res) {
-    const  {sports,business,technology,general,health,science,email}=req.query;
+    const  {sports,business,technology,entertainment,health,science,email}=req.query;
      let myFavCat=[{
     sports: sports,
     business:business,
     technology:technology,
-    general:general,
+    entertainment:entertainment,
     health:health,
     science:science,
     
