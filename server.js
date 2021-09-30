@@ -33,12 +33,11 @@ function proofOfLif(req, res) {
 }
 
 //connect mongo with express server locally
-mongoose.connect(process.env.MONGODB_URI,
+mongoose.connect(process.env.MONGODB_URI ?process.env.MONGODB_URI :  'mongodb+srv://Ahmad-Abu-Osbeh:12345@apexnewscluster.9a3de.mongodb.net/apexnewsCluster?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 // create categ schema
-
 const CategorySchema = new mongoose.Schema({
     sports: Boolean,
     business: Boolean,
@@ -250,7 +249,7 @@ function reloadDataHandler(req,res){
    UserModel.findOne({email:email},function (error,userData){
        
     // console.log('userData.favCategory',userData.favCategory);
-    res.send(userData.favCategory);
+    res.send(userData.favCategory?userData.favCategory:null );
    });
 
 
